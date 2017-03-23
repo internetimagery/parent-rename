@@ -55,6 +55,7 @@ func getfiles(path string) ([]string) {
 }
 
 // Validate files in a folder match our naming scheme
+// For files that do not match, add their corresponding scheme name
 func validate(dir *Directory) {
   // Quote our base name to use in regexp
   base := regexp.QuoteMeta(dir.Name)
