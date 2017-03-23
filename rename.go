@@ -112,7 +112,13 @@ func main()  {
           defer hold.Done()
           // Validate and build our rename candidates
           validate(dir)
-          fmt.Println("Dir: ", dir)
+          for k, v := range dir.Files {
+            if v != "" {
+              fmt.Println("Old:", k)
+              fmt.Println("New:", v)
+              fmt.Println()
+            }
+          }
         }(k, v)
       }
       hold.Wait()
