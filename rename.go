@@ -1,6 +1,7 @@
 // Rename files to that of their containing folder.
 // Also ignore anything in square brackets, for
 // compatability with TagSpaces.
+// Version 1
 package main
 
 import (
@@ -113,11 +114,18 @@ func main()  {
           defer hold.Done()
           // Validate and build our rename candidates
           validate(dir)
-          for k, v := range dir.Files {
-            if v != "" {
-              fmt.Println("Old:", k)
-              fmt.Println("New:", v)
-              fmt.Println()
+          for old, _new := range dir.Files {
+            if _new != "" {
+              // Build our absolute paths, and rename files!
+              fmt.Printf("Rename: %s => %s ", old, _new)
+              old_abs := filepath.Join(path, old)
+              new_abs := filepath.Join(path, _new)
+              err := os.Rename(old_abs, new_abs)
+              if err == nil {
+                fmt.Printf("OK\n")
+              } else {
+                fmt.Printf("FAILED\n")
+              }
             }
           }
         }(k, v)
